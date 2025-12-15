@@ -2,6 +2,7 @@
 using Menu;
 using RainMeadow.Game;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -191,27 +192,49 @@ namespace RainMeadow
                 sw.Stop();
                 RainMeadow.Debug($"RPCManager.SetupRPCs: {sw.Elapsed}");
 
-                AssetBundle bundle = AssetBundle.LoadFromFile(AssetManager.ResolveFilePath("assetbundles/rainmeadow"));
-                Shader[] newShaders = bundle.LoadAllAssets<Shader>();
-                foreach (Shader shader in newShaders)
+                try
                 {
-                    RainMeadow.Debug("found shader " + shader.name);
-                    var found = false;
-                    foreach (FShader oldshader in self.Shaders.Values)
+                    var bundlePath = AssetManager.ResolveFilePath("assetbundles/rainmeadow");
+                    if (!string.IsNullOrEmpty(bundlePath) && File.Exists(bundlePath))
                     {
-                        if (oldshader.shader.name == shader.name)
+                        AssetBundle bundle = AssetBundle.LoadFromFile(bundlePath);
+                        if (bundle != null)
                         {
-                            RainMeadow.Debug("replaced existing shader");
-                            oldshader.shader = shader;
-                            found = true;
-                            break;
+                            Shader[] newShaders = bundle.LoadAllAssets<Shader>();
+                            foreach (Shader shader in newShaders)
+                            {
+                                RainMeadow.Debug("found shader " + shader.name);
+                                var found = false;
+                                foreach (FShader oldshader in self.Shaders.Values)
+                                {
+                                    if (oldshader.shader.name == shader.name)
+                                    {
+                                        RainMeadow.Debug("replaced existing shader");
+                                        oldshader.shader = shader;
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (!found)
+                                {
+                                    RainMeadow.Debug("registered as new shader");
+                                    self.Shaders[shader.name] = FShader.CreateShader(shader.name, shader);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            RainMeadow.Debug("AssetBundle.LoadFromFile returned null for: " + bundlePath);
                         }
                     }
-                    if (!found)
+                    else
                     {
-                        RainMeadow.Debug("registered as new shader");
-                        self.Shaders[shader.name] = FShader.CreateShader(shader.name, shader);
+                        RainMeadow.Debug("assetbundles/rainmeadow not found at: " + bundlePath);
                     }
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError(e);
                 }
 
                 GameHooks();
@@ -282,12 +305,14 @@ namespace RainMeadow
         };
 
         public static bool IsDev(MeadowPlayerId player)
-        {
+        {   
             if (player is SteamMatchmakingManager.SteamPlayerId steamid)
             {
                 ulong steamID = steamid.oid.GetSteamID64();
+
                 SHA256 Sha = SHA256.Create();
                 var steamIDHash = System.Convert.ToBase64String(Sha.ComputeHash(Encoding.ASCII.GetBytes(steamID.ToString())));
+                RainMeadow.instance.Logger.LogInfo("GARRA PLAYER ID:"+steamIDHash);
 
                 if (devSteamIdHashes.Contains(steamIDHash))
                 {

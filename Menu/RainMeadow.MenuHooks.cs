@@ -428,6 +428,7 @@ namespace RainMeadow
             if (ID == Ext_ProcessID.LobbyCreateMenu) self.currentMainLoop = new LobbyCreateMenu(self);
             if (ID == Ext_ProcessID.ArenaLobbyMenu) self.currentMainLoop = new ArenaOnlineLobbyMenu(self);
             if (ID == Ext_ProcessID.MeadowMenu) self.currentMainLoop = new MeadowMenu(self);
+            if (ID == Ext_ProcessID.ExpeditionMenu) self.currentMainLoop = new ExpeditionMenu(self);
             if (ID == Ext_ProcessID.StoryMenu) self.currentMainLoop = new StoryOnlineMenu(self);
             if (ID == Ext_ProcessID.MeadowCredits) self.currentMainLoop = new MeadowCredits(self);
 

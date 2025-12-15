@@ -15,6 +15,7 @@ namespace RainMeadow
             public static ProcessManager.ProcessID SpectatorMode = new("SpectatorMode", true);
             public static ProcessManager.ProcessID ChatMode = new("ChatMode", true);
             public static ProcessManager.ProcessID MeadowCredits = new("MeadowCredits", true);
+            public static ProcessManager.ProcessID ExpeditionMenu = new("ExpeditionMenu", true);
         }
 
         public class Ext_SlugcatStatsName

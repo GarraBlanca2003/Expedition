@@ -48,6 +48,6 @@
 		<ItemGroup>
 			<BuildFiles Include="$(Outdir)\*" />
 		</ItemGroup>
-		<Copy SourceFiles="@(BuildFiles)" DestinationFolder="$(ProjectDir)Mod\plugins" />
+		<Copy SourceFiles="@(BuildFiles)" DestinationFolder="/mnt/big/SteamLibrary/steamapps/common/Rain World/RainWorld_Data/StreamingAssets/mods/Mod/plugins" />
 	</Target>
 </Project>
