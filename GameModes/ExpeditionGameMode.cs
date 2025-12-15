@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace RainMeadow
 {
-    // Minimal scaffold for Expedition mode. Extend as needed.
-    public class ExpeditionGameMode : OnlineGameMode
+    // Expedition mode: reuse StoryGameMode behaviour (gates, syncing, Jolly integration)
+    public class ExpeditionGameMode : StoryGameMode
     {
         public ExpeditionGameMode(Lobby lobby) : base(lobby)
         {
@@ -39,17 +39,20 @@ namespace RainMeadow
 
         public override void AddClientData()
         {
+            base.AddClientData();
             // add any per-client data types here
         }
 
         public override void ConfigureAvatar(OnlineCreature onlineCreature)
         {
+            base.ConfigureAvatar(onlineCreature);
             // attach mode-specific avatar data if needed
         }
 
         public override void Customize(Creature creature, OnlineCreature oc)
         {
-            // Minimal customization: no changes by default.
+            // reuse StoryGameMode customizations
+            base.Customize(creature, oc);
             // Extend this to modify `creature` based on `oc` (avatar data) for expedition mode.
         }
 
@@ -63,6 +66,15 @@ namespace RainMeadow
         {
             base.PlayerLeftLobby(player);
             // cleanup player-specific expedition state
+        }
+
+        public override void ResourceAvailable(OnlineResource onlineResource)
+        {
+            base.ResourceAvailable(onlineResource);
+            if (onlineResource is Lobby lobby)
+            {
+                lobby.AddData(new ExpeditionLobbyData());
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace RainMeadow
         public ChatMenuBox? chatMenuBox;
         public PlayerDisplayer? playerDisplayer;
 
-        public override MenuScene.SceneID GetScene => null;
+        public override MenuScene.SceneID GetScene => MenuScene.SceneID.Landscape_SU;
 
         public ExpeditionMenu(ProcessManager manager) : base(manager, RainMeadow.Ext_ProcessID.ExpeditionMenu)
         {
@@ -23,6 +23,20 @@ namespace RainMeadow
             this.startButton = new EventfulHoldButton(this, this.pages[0], this.Translate("ENTER"), new UnityEngine.Vector2(683f, 85f), 40f);
             this.startButton.OnClick += (_) => { StartGame(); };
             this.pages[0].subObjects.Add(this.startButton);
+
+            // explicit Back button to ensure correct lobby leave behavior
+            try
+            {
+                var backBtn = new SimplerButton(this, this.pages[0], this.Translate("BACK"), new Vector2(50f, 85f), new Vector2(110f, 30f));
+                backBtn.OnClick += _ =>
+                {
+                    try { OnlineManager.LeaveLobby(); } catch { }
+                    PlaySound(SoundID.MENU_Switch_Page_Out);
+                    manager.RequestMainProcessSwitch(RainMeadow.Ext_ProcessID.LobbySelectMenu);
+                };
+                this.pages[0].subObjects.Add(backBtn);
+            }
+            catch { }
 
             // Chat and player list (mirrors Story/Arena lobby patterns)
             try
@@ -79,7 +93,19 @@ namespace RainMeadow
         private void StartGame()
         {
             if (OnlineManager.lobby == null || !OnlineManager.lobby.isActive) return;
-            // For a minimal scaffold, just transition to game start like MeadowMenu does.
+            // only the lobby owner may trigger the expedition start; non-owners wait in the menu
+            if (!OnlineManager.lobby.isOwner)
+            {
+                PlaySound(SoundID.MENU_Greyed_Out_Button_Clicked);
+                try
+                {
+                    manager.ShowDialog(new DialogNotify(this.Translate("Waiting for host to start"), manager, null));
+                }
+                catch { }
+                return;
+            }
+
+            // Owner starts locally (network start flow handled by game mode/lobby code)
             manager.RequestMainProcessSwitch(ProcessManager.ProcessID.Game);
         }
 

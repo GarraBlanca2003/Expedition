@@ -1,4 +1,4 @@
-henpemaz_rainmeadow-description|Мультиплеерный движок; кастомный игровой режим, вдохновленный игрой «Meadow» от Might & Delight, а также онлайн история и арена.<LINE><LINE>Полный список создателей можно найти в мастерской или в отдельном окне меню «Meadow».
+garra_expedition_rainmeadow-description|Мультиплеерный движок; кастомный игровой режим, вдохновленный игрой «Meadow» от Might & Delight, а также онлайн история и арена.<LINE><LINE>Полный список создателей можно найти в мастерской или в отдельном окне меню «Meadow».
 ///Меню
 Rain Meadow|Rain Meadow
 MEADOW|MEADOW

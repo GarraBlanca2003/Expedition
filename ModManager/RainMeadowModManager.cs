@@ -63,7 +63,7 @@ namespace RainMeadow
                 .Where(mod => requiredMods.Contains(mod.id))
                 .OrderBy(mod => mod.loadOrder)
                 .Select(mod => mod.id)
-                .Append("henpemaz_rainmeadow")
+                .Append("garra_expedition_rainmeadow")
                 .Distinct()
                 .ToArray();
         }
@@ -101,7 +101,7 @@ namespace RainMeadow
             // (required + banned) - enabled
             return syncRequiredMods.Concat(bannedOnlineMods)
                 .Except(ModManager.ActiveMods.Select(mod => mod.id))
-                .Where(mod => mod != "henpemaz_rainmeadow")
+                .Where(mod => mod != "garra_expedition_rainmeadow")
                 .ToArray();
         }
 
@@ -126,8 +126,8 @@ namespace RainMeadow
                 var enable = requiredMods.Except(active).ToList();
 
                 //clear phony entries to the mod list
-                enable.RemoveAll(mod => mod == null || mod == "" /* || mod == "henpemaz_rainmeadow" */);
-                disable.RemoveAll(mod => mod == null || mod == "" /* || mod == "henpemaz_rainmeadow" */);
+                enable.RemoveAll(mod => mod == null || mod == "" /* || mod == "garra_expedition_rainmeadow" */);
+                disable.RemoveAll(mod => mod == null || mod == "" /* || mod == "garra_expedition_rainmeadow" */);
 
                 //determine whether a reorder is necessary
                 if (!disable.Any() && !enable.Any())
@@ -140,7 +140,7 @@ namespace RainMeadow
                             int prevIdx = Int32.MinValue;
                             for (int i = 0; i < requiredMods.Length; i++)
                             {
-                                if (requiredMods[i] == "henpemaz_rainmeadow")
+                                if (requiredMods[i] == "garra_expedition_rainmeadow")
                                     continue; //ignore Rain Meadow when determining whether mods need to be reordered
                                 int modIdx = ModManager.ActiveMods.FindIndex(mod => requiredMods[i] == mod.id);
                                 if (modIdx < 0)

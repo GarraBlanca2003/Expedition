@@ -1,6 +1,6 @@
 0// Mod Name & Description
-henpemaz_rainmeadow-name|Rain Meadow
-henpemaz_rainmeadow-description|Un motor multijugador, modo de juego personalizado inspirado en «Meadow» de Might & Delight, y experiencia en línea para el modo arena e historia.<LINE><LINE>Para ver los créditos completos dirígete al workshop o a la página de créditos en el menú de Meadow.
+garra_expedition_rainmeadow-name|Rain Meadow
+garra_expedition_rainmeadow-description|Un motor multijugador, modo de juego personalizado inspirado en «Meadow» de Might & Delight, y experiencia en línea para el modo arena e historia.<LINE><LINE>Para ver los créditos completos dirígete al workshop o a la página de créditos en el menú de Meadow.
 
 // Mod Tab
 MEADOW|MEADOW

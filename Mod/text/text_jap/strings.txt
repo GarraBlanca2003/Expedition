@@ -1,6 +1,6 @@
 0// Mod Name & Description
-henpemaz_rainmeadow-name|レインメドウ
-henpemaz_rainmeadow-description|マルチプレイヤーエンジン、Might&DelightのMeadowにインスパイアされたカスタム<LINE>ゲーム、オンラインアリーナとストーリー体験。<LINE><LINE>すべてのクレジットはレインメドウのModメニューから見ることができます。
+garra_expedition_rainmeadow-name|レインメドウ
+garra_expedition_rainmeadow-description|マルチプレイヤーエンジン、Might&DelightのMeadowにインスパイアされたカスタム<LINE>ゲーム、オンラインアリーナとストーリー体験。<LINE><LINE>すべてのクレジットはレインメドウのModメニューから見ることができます。
 
 
 // Mod Tab

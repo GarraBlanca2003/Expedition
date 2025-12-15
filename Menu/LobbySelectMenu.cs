@@ -145,7 +145,7 @@ namespace RainMeadow
             string[] requiredModIDs = RainMeadowModManager.GetRequiredMods();
             foreach (string id in requiredModIDs)
             { //adding Rain Meadow is quite redundant, so I'll leave it out.
-                if (id != "henpemaz_rainmeadow") requiredModsList.Add(new(id, "+" + RainMeadowModManager.ModIdToName(id), requiredModsList.Count));
+                if (id != "garra_expedition_rainmeadow") requiredModsList.Add(new(id, "+" + RainMeadowModManager.ModIdToName(id), requiredModsList.Count));
             }
             filterModsDropDown = new OpComboBox2(new Configurable<string>("Any"), where, 160f, requiredModsList) { colorEdge = MenuColorEffect.rgbWhite };
             filterModsDropDown.OnChange += UpdateLobbyFilter;

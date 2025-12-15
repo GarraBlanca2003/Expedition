@@ -54,8 +54,8 @@ namespace RainMeadow
             {
                 using (WebClient client = new WebClient())
                 {
-                    var cape_hash_file = Path.Combine(ModManager.GetModById("henpemaz_rainmeadow").path, "capes_hash.txt");
-                    var capes_txt = Path.Combine(ModManager.GetModById("henpemaz_rainmeadow").path, "capes.txt");
+                    var cape_hash_file = Path.Combine(ModManager.GetModById("garra_expedition_rainmeadow").path, "capes_hash.txt");
+                    var capes_txt = Path.Combine(ModManager.GetModById("garra_expedition_rainmeadow").path, "capes.txt");
 
                     // Download remote commit hash.
                     string commithash = getRemoteLatestCommit();

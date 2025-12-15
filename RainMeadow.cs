@@ -168,7 +168,7 @@ namespace RainMeadow
             {
                 MenuHooks(); //  sets the error message fallback
 
-                MachineConnector.SetRegisteredOI("henpemaz_rainmeadow", rainMeadowOptions);
+                MachineConnector.SetRegisteredOI("garra_expedition_rainmeadow", rainMeadowOptions);
 
                 UsernameGenerator.Timestamp = DateTime.Now.Ticks;
 
