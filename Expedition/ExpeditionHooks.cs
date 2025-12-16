@@ -24,6 +24,106 @@ namespace RainMeadow
 
         private void ExpeditionHooks()
         {
+            On.PlayerProgression.GetOrInitiateSaveState += PlayerProgression_GetOrInitiateSaveState;
+            On.PlayerProgression.SaveToDisk += PlayerProgression_SaveToDisk;
+            On.Menu.KarmaLadderScreen.Update += KarmaLadderScreen_Update;
+            On.Menu.KarmaLadderScreen.Singal += KarmaLadderScreen_Singal;
+            On.HUD.KarmaMeter.RippleSymbolSprite += HUD_KarmaMeter_RippleSymbolSprite;
+
+            On.Menu.SleepAndDeathScreen.AddPassageButton += SleepAndDeathScreen_AddPassageButton;
+            On.Menu.CustomEndGameScreen.GetDataFromSleepScreen += CustomEndGameScreen_GetDataFromSleepScreen;
+            On.Menu.FastTravelScreen.ctor += FastTravelScreen_ctor;
+            IL.Menu.FastTravelScreen.ctor += FastTravelScreen_ctor_ClientDontFilterRegions;
+            On.Menu.FastTravelScreen.StepRegion += FastTravelScreen_StepRegion;
+            On.Menu.FastTravelScreen.InitiateRegionSwitch += FastTravelScreen_InitiateRegionSwitch;
+            On.Menu.FastTravelScreen.Update += FastTravelScreen_Update;
+            On.Menu.FastTravelScreen.Singal += FastTravelScreen_Singal_ClientLoadGameNormally;
+
+            On.HUD.HUD.InitSinglePlayerHud += HUD_InitSinglePlayerHud;
+
+            IL.HUD.FoodMeter.TrySpawnPupBars += FoodMeter_TrySpawnPupBars_LobbyOwner;
+            On.HUD.FoodMeter.TrySpawnPupBars += FoodMeter_TrySpawnPupBars_LobbyClient;
+            // On.SlugcatStats.SlugcatFoodMeter += SlugcatStats_SlugcatFoodMeter;
+
+            IL.HardmodeStart.ctor += HardmodeStart_ctor;
+            new Hook(typeof(HardmodeStart.HardmodePlayer).GetProperty("MainPlayer").GetGetMethod(), this.HardmodeStart_HardmodePlayer_MainPlayer);
+            IL.HardmodeStart.SinglePlayerUpdate += HardmodeStart_SinglePlayerUpdate;
+
+            IL.Player.ctor += Player_ctor_NonHunterCampaignClientDisableRedsIllness;
+            On.Player.ctor += Player_ctor_SynchronizeFoodBarForActualPlayers;
+
+            IL.MoreSlugcats.MSCRoomSpecificScript.DS_RIVSTARTcutscene.ctor += ClientDisableUAD;
+            IL.MoreSlugcats.CutsceneArtificer.ctor += ClientDisableUAD;
+            IL.MoreSlugcats.CutsceneArtificerRobo.ctor += ClientDisableUAD;
+            IL.MoreSlugcats.MSCRoomSpecificScript.SI_SAINTINTRO_tut.ctor += ClientDisableUAD;
+
+            IL.Menu.DreamScreen.Update += DreamScreen_Update_DisableArtiFlashbacks;
+            On.MoreSlugcats.MSCRoomSpecificScript.LC_FINAL.Update += MoreSlugcats_MSCRoomSpecificScript_LC_FINAL_Update;
+            On.MoreSlugcats.MSCRoomSpecificScript.LC_FINAL.TriggerBossFight += MoreSlugcats_MSCRoomSpecificScript_LC_FINAL_TriggerBossFight;
+            On.MoreSlugcats.MSCRoomSpecificScript.LC_FINAL.TriggerFadeToEnding += MoreSlugcats_MSCRoomSpecificScript_LC_FINAL_TriggerFadeToEnding;
+            On.MoreSlugcats.MSCRoomSpecificScript.LC_FINAL.SummonScavengers += MoreSlugcats_MSCRoomSpecificScript_LC_FINAL_SummonScavengers;
+
+            On.GhostHunch.Update += GhostHunch_Update;
+
+            On.RainWorldGame.Win += RainWorldGame_Win;
+            On.RainWorldGame.GoToStarveScreen += RainWorldGame_GoToStarveScreen;
+            On.RainWorldGame.GhostShutDown += RainWorldGame_GhostShutDown;
+            On.RainWorldGame.GoToDeathScreen += RainWorldGame_GoToDeathScreen;
+            On.RainWorldGame.GoToRedsGameOver += RainWorldGame_GoToRedsGameOver;
+
+            On.SaveState.SessionEnded += SaveState_SessionEnded;
+            IL.SaveState.SessionEnded += SaveState_SessionEnded_DontAssumePlayerRealized;
+            On.SaveState.BringUpToDate += SaveState_BringUpToDate;
+            On.SaveState.GetSaveStateDenToUse += SaveState_GetSaveStateDenToUse;
+
+            On.WaterNut.Swell += WaterNut_Swell;
+            On.SporePlant.Pacify += SporePlant_Pacify;
+
+            On.Oracle.CreateMarble += Oracle_CreateMarble;
+            On.Oracle.SetUpMarbles += Oracle_SetUpMarbles;
+            On.Oracle.SetUpSwarmers += Oracle_SetUpSwarmers;
+            On.OracleSwarmer.BitByPlayer += OracleSwarmer_BitByPlayer;
+            On.SLOracleSwarmer.BitByPlayer += SLOracleSwarmer_BitByPlayer;
+            On.CoralBrain.CoralNeuronSystem.PlaceSwarmers += OnCoralNeuronSystem_PlaceSwarmers;
+            On.SSOracleSwarmer.NewRoom += SSOracleSwarmer_NewRoom;
+
+            On.Oracle.ctor += Oracle_ctor;
+            IL.Room.ReadyForAI += Room_ReadyForAI;
+            On.SLOracleWakeUpProcedure.SwarmerEnterRoom += SLOracleWakeUpProcedure_SwarmerEnterRoom;
+            IL.SLOracleWakeUpProcedure.Update += SLOracleWakeUpProcedure_Update;
+            IL.SLOracleBehavior.Update += SLOracleBehavior_Update;
+            On.SLOracleBehavior.Update += SLOracleBehavior_Update1;
+            On.SLOracleBehaviorHasMark.Update += SLOracleBehaviorHasMark_Update;
+            On.SLOracleBehaviorHasMark.PlayerPutItemOnGround += SLOracleBehaviorHasMark_PlayerPutItemOnGround;
+
+            On.HUD.TextPrompt.Update += TextPrompt_Update;
+            On.HUD.TextPrompt.UpdateGameOverString += TextPrompt_UpdateGameOverString;
+
+            IL.Menu.SlugcatSelectMenu.UpdateSelectedSlugcatInMiscProg += SlugcatSelectMenu_UpdateSelectedSlugcatInMiscProg;
+
+            IL.Menu.SlugcatSelectMenu.SliderSetValue += SlugcatSelectMenu_SliderFix;
+            IL.Menu.SlugcatSelectMenu.ValueOfSlider += SlugcatSelectMenu_SliderFix;
+            IL.Menu.SlugcatSelectMenu.Singal += IL_SlugcatSelectMenu_SingalFix;
+            IL.Menu.SlugcatSelectMenu.SetChecked += IL_SlugcatSelectMenu_SetChecked;
+            On.Menu.SlugcatSelectMenu.SetChecked += SlugcatSelectMenu_SetChecked;
+            On.Menu.SlugcatSelectMenu.GetChecked += SlugcatSelectMenu_GetChecked;
+            On.Menu.SlugcatSelectMenu.SliderSetValue += SlugcatSelectMenu_SliderSetValue;
+            On.Menu.PauseMenu.SpawnExitContinueButtons += PauseMenu_SpawnExitContinueButtons;
+
+            On.VoidSea.PlayerGhosts.AddGhost += PlayerGhosts_AddGhost;
+            On.VoidSea.VoidSeaScene.Update += VoidSeaScene_Update;
+
+            On.Watcher.WarpPoint.NewWorldLoaded_Room += WarpPoint_NewWorldLoaded_Room; // creature moving between WORLDS
+            On.Watcher.WarpPoint.Update += Watcher_WarpPoint_Update;
+            On.Watcher.WarpPoint.WarpPrecast += Watcher_WarpPoint_WarpPrecast;
+            //On.Watcher.WarpPoint.PerformWarp += WarpPoint_PerformWarp;
+            On.Watcher.PrinceBehavior.InitateConversation += Watcher_PrinceBehavior_InitateConversation;
+            IL.Watcher.Barnacle.LoseShell += Watcher_Barnacle_LoseShell;
+            On.Watcher.SpinningTop.SpawnWarpPoint += SpinningTop_SpawnWarpPoint;
+            On.Watcher.SpinningTop.RaiseRippleLevel += SpinningTop_RaiseRippleLevel;
+            IL.Watcher.SpinningTop.SpawnBackupWarpPoint += SpinningTop_SpawnBackupWarpPoint;
+
+
             // register only the RegionGate / Warp hooks for Expedition mode
             IL.RegionGate.Update += Expedition_RegionGate_Update;
             On.RegionGate.PlayersInZone += Expedition_RegionGate_PlayersInZone;
@@ -36,6 +136,7 @@ namespace RainMeadow
         {
             try
             {
+                RainMeadow.Warn("GARRA CHANGE ZONE IN EXPEDITION HOOKS");
                 var c = new ILCursor(il);
                 var skip = il.DefineLabel();
                 c.GotoNext(moveType: MoveType.After,
@@ -81,6 +182,7 @@ namespace RainMeadow
 
         private int Expedition_RegionGate_PlayersInZone(On.RegionGate.orig_PlayersInZone orig, RegionGate self)
         {
+            RainMeadow.Warn("GARRA EXPEDITION REGIONGATE PLAYERS IN ZONE");
             var ret = orig(self);
             if (isExpeditionMode(out var storyGameMode))
             {

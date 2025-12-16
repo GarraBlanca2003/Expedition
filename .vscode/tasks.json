@@ -9,7 +9,7 @@
 				"build",
 				"${workspaceFolder}/Rain Meadow.csproj",
 				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary"
+				"/consoleloggerparameters:ErrorsOnly"
 			],
 			"problemMatcher": "$msCompile",
 			"group": {

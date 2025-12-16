@@ -32,7 +32,7 @@ namespace RainMeadow.UI.Components
         {
             buttonHeight = isLargeDisplay ? largeButtonHeightSpacing.Item1 : smallButtonHeightSpacing.Item1;
             buttonSpacing = isLargeDisplay ? largeButtonHeightSpacing.Item2 : smallButtonHeightSpacing.Item2;
-            List<IPartOfButtonScroller> scrollButtons = [];
+            List<IPartOfButtonScroller> scrollButtons = new List<IPartOfButtonScroller>();
             for (int i = 0; i < onlinePlayers?.Count; i++)
             {
                 IPartOfButtonScroller? scrollButton = getPlayerButton?.Invoke(this, isLargeDisplay, onlinePlayers[i], GetIdealPosWithScrollForButton(scrollButtons.Count));
@@ -43,7 +43,7 @@ namespace RainMeadow.UI.Components
                 }
                 scrollButtons.Add(scrollButton);
             }
-            return [.. scrollButtons];
+            return scrollButtons.ToArray();
         }
         public override string DescriptionOfDisplayButton() => menu.Translate(isCurrentlyLargeDisplay ? "Showing players in thumbnail view" : "Showing players in list view");
 

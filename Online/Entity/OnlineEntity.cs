@@ -175,7 +175,7 @@ namespace RainMeadow
                 }
             }
             if (isPending) { return; } // still pending
-            RainMeadow.Debug(this);
+            //RainMeadow.Debug(this);
 
 
             // any resources to leave
