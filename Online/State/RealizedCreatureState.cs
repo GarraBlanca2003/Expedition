@@ -61,7 +61,10 @@ namespace RainMeadow
 
             creature.stun = stun;
             creature.enteringShortCut = enteringShortcut;
-            creature.NPCTransportationDestination = transportationDestination;
+            if (!transportationDestination.Equals(default(WorldCoordinate)))
+            {
+                creature.NPCTransportationDestination = transportationDestination;
+            }
 
             if (creature.grasps != null)
             {

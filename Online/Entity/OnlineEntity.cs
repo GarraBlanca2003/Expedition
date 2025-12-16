@@ -98,23 +98,23 @@ namespace RainMeadow
         public void EnterResource(OnlineResource resource)
         {
             if (enteredResources.Contains(resource)) { if (isMine) JoinOrLeavePending(); return; }
-            RainMeadow.Debug($"{this} entering {resource}");
+            //RainMeadow.Debug($"{this} entering {resource}");
             if (enteredResources.Count != 0 && resource.super != currentlyEnteredResource)
             {
-                RainMeadow.Debug("migrating from " + currentlyEnteredResource);
+                //RainMeadow.Debug("migrating from " + currentlyEnteredResource);
                 var primary = currentlyEnteredResource.chain.First(r => enteredResources.Contains(r));
                 var commonAncestor = currentlyEnteredResource.CommonAncestor(resource, out List<OnlineResource> chainA, out List<OnlineResource> chainB);
                 // roll up
                 while (enteredResources.Count != 0 && currentlyEnteredResource != commonAncestor)
                 {
-                    RainMeadow.Debug("leaving from: " + currentlyEnteredResource);
+                    //RainMeadow.Debug("leaving from: " + currentlyEnteredResource);
                     enteredResources.Remove(currentlyEnteredResource);
                 }
                 // roll down
                 var mergeTarget = chainB.Contains(currentlyEnteredResource) ? currentlyEnteredResource : chainB.First(e => e.IsSibling(primary));
                 foreach (var res in chainB.SkipWhile(r => r != mergeTarget).SkipWhile(r => enteredResources.Contains(r)))
                 {
-                    RainMeadow.Debug("actually entering: " + res);
+                    //RainMeadow.Debug("actually entering: " + res);
                     enteredResources.Add(res);
                 }
             }
@@ -135,7 +135,7 @@ namespace RainMeadow
             RainMeadow.Debug($"{this} exiting {resource}");
             var index = enteredResources.IndexOf(resource);
             if (index > -1) enteredResources.RemoveRange(index, enteredResources.Count - index);
-            RainMeadow.Debug($"now in {currentlyEnteredResource}");
+            //RainMeadow.Debug($"now in {currentlyEnteredResource}");
             if (isMine) JoinOrLeavePending();
         }
 

@@ -197,7 +197,25 @@ namespace RainMeadow
         }
         public SideButton AddSideButton(string symbolName, string text = "", string description = "", string signal = "")
         {
-            SideButton btn = new(menu, this, new Vector2(size.x + 7f, 14f + 30f * sideButtons.Count), symbolName, text, description, signal);
+            SideButton btn;
+            try
+            {
+                btn = new(menu, this, new Vector2(size.x + 7f, 14f + 30f * sideButtons.Count), symbolName, text, description, signal);
+            }
+            catch
+            {
+                // Fallback to a known-good symbol if the requested sprite isn't available.
+                try
+                {
+                    btn = new(menu, this, new Vector2(size.x + 7f, 14f + 30f * sideButtons.Count), "Menu_Symbol_Ping", text, description, signal);
+                }
+                catch
+                {
+                    // As a last resort, create with an empty symbol to avoid throwing.
+                    btn = new(menu, this, new Vector2(size.x + 7f, 14f + 30f * sideButtons.Count), "", text, description, signal);
+                }
+            }
+
             sideButtons.Add(btn);
             subObjects.Add(btn);
 

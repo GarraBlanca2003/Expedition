@@ -40,7 +40,6 @@ namespace RainMeadow
         public override void AddClientData()
         {
             base.AddClientData();
-            // add any per-client data types here
         }
 
         public override void ConfigureAvatar(OnlineCreature onlineCreature)
@@ -51,7 +50,6 @@ namespace RainMeadow
 
         public override void Customize(Creature creature, OnlineCreature oc)
         {
-            // reuse StoryGameMode customizations
             base.Customize(creature, oc);
             // Extend this to modify `creature` based on `oc` (avatar data) for expedition mode.
         }
@@ -59,13 +57,11 @@ namespace RainMeadow
         public override void NewPlayerInLobby(OnlinePlayer player)
         {
             base.NewPlayerInLobby(player);
-            // initialize expedition-specific settings for the player
         }
 
         public override void PlayerLeftLobby(OnlinePlayer player)
         {
             base.PlayerLeftLobby(player);
-            // cleanup player-specific expedition state
         }
 
         public override void ResourceAvailable(OnlineResource onlineResource)

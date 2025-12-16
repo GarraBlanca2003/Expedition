@@ -247,6 +247,7 @@ namespace RainMeadow
                 MeadowHooks();
                 LoadingHooks();
                 StoryHooks();
+                ExpeditionHooks();
                 ArenaHooks();
                 ItemHooks();
                 ObjectHooks();
