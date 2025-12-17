@@ -20,7 +20,8 @@ namespace RainMeadow
         private static string LogDOT() { return DateTime.Now.ToUniversalTime().TimeOfDay.ToString().Substring(0, 8); }
         public static void Debug(object data, [CallerFilePath] string callerFile = "", [CallerMemberName] string callerName = "")
         {
-            instance.Logger.LogInfo($"{LogDOT()}|{LogTime()}|{TrimCaller(callerFile)}.{callerName}:{data}");
+        //    instance.Logger.LogInfo($"{LogDOT()}|{LogTime()}|{TrimCaller(callerFile)}.{callerName}:{data}");
+        
         }
         public static void DebugMe([CallerFilePath] string callerFile = "", [CallerMemberName] string callerName = "")
         {

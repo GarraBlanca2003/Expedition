@@ -6,9 +6,19 @@ namespace RainMeadow
     // Minimal scaffold for Expedition mode. Extend as needed.
     public class ExpeditionGameMode : OnlineGameMode
     {
+
+        public SlugcatCustomization[] avatarSettings;
+        public string? region = null;
+        public int avatarCount { get; set; } = 1;
         public ExpeditionGameMode(Lobby lobby) : base(lobby)
         {
             // setup minimal data for expeditions
+
+            avatarSettings = new SlugcatCustomization[4];
+            for (int i = 0; i < avatarSettings.Length; i++)
+            {
+                avatarSettings[i] = new SlugcatCustomization() { nickname = OnlineManager.mePlayer.id.name };
+            }
         }
 
         public override bool ShouldLoadCreatures(RainWorldGame game, WorldSession worldSession)
