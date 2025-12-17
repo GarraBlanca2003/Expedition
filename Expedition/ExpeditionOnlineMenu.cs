@@ -21,10 +21,13 @@ namespace RainMeadow
 {
     // Minimal Expedition menu scaffold. Expand UI as needed.
     public class ExpeditionOnlineMenu : SmartMenu
+    
     {
         EventfulHoldButton startButton;
 
-        private SlugcatCustomization personaSettings;
+
+      private ExpeditionGameMode expeditionGameMode;
+          private SlugcatCustomization personaSettings;
         public ChatMenuBox? chatMenuBox;
         public PlayerDisplayer? playerDisplayer;
         private MenuLabel? lobbyLabel, slugcatLabel;
@@ -97,25 +100,25 @@ namespace RainMeadow
         private void SetupOnlineMenuItems()
         {
             // Player lobby label
-            lobbyLabel = new MenuLabel(this, pages[0], Translate("LOBBY"), new Vector2(194, 553), new(110, 30), true);
+            lobbyLabel = new MenuLabel(this, pages[0], "Testing GArra", new Vector2(194, 553), new(110, 30), true);
             pages[0].subObjects.Add(lobbyLabel);
 
-            var invite = new SimplerButton(this, pages[0], Translate("Invite Friends"), new(nextButton.pos.x + 80f, 50f), new(110, 35));
-            invite.OnClick += (_) => MatchmakingManager.currentInstance.OpenInvitationOverlay();
-            pages[0].subObjects.Add(invite);
+            //           var invite = new SimplerButton(this, pages[0], Translate("Invite Friends"), new(nextButton.pos.x + 80f, 50f), new(110, 35));
+            //           invite.OnClick += (_) => MatchmakingManager.currentInstance.OpenInvitationOverlay();
+            //           pages[0].subObjects.Add(invite);
 
-            //this.chatTextBoxPos = new Vector2(this.manager.rainWorld.options.ScreenSize.x * 0.001f + (1366f - this.manager.rainWorld.options.ScreenSize.x) / 2f, 0);
-            //var toggleChat = new SimplerSymbolButton(this, pages[0], "Kill_Slugcat", "", this.chatTextBoxPos);
-            //toggleChat.OnClick += (_) =>
+            this.chatTextBoxPos = new Vector2(this.manager.rainWorld.options.ScreenSize.x * 0.001f + (1366f - this.manager.rainWorld.options.ScreenSize.x) / 2f, 0);
+            var toggleChat = new SimplerSymbolButton(this, pages[0], "Kill_Slugcat", "", this.chatTextBoxPos);
+            toggleChat.OnClick += (_) =>
             {
-                //ToggleChat(!this.isChatToggled);
+                ToggleChat(!this.isChatToggled);
                 if (input.controllerType == Options.ControlSetup.Preset.KeyboardSinglePlayer)
                 {
                     selectedObject = null;
                 }
             }
             ;
-            //pages[0].subObjects.Add(toggleChat);
+            pages[0].subObjects.Add(toggleChat);
 
             // var sameSpotOtherSide = restartCheckboxPos.x - startButton.pos.x;
             //friendlyFire = new CheckBox(this, pages[0], this, new Vector2(startButton.pos.x - sameSpotOtherSide, restartCheckboxPos.y + 30), 70f, Translate("Friendly Fire"), "ONLINEFRIENDLYFIRE", false);
@@ -132,16 +135,18 @@ namespace RainMeadow
         {
             foreach (var obj in pages[0].subObjects) // unfortunate locally declared variable.
             {
+                RainMeadow.Warn("Garra test Menu list:" + obj);
                 if (obj is SimpleButton button && button.signalText == "BACK")
                 {
+                    RainMeadow.Warn("Garra test Menu list:" + obj + "Found");
+
                     button.pos = new Vector2(prevButton.pos.x - 140f, 50f);
                 }
             }
         }
         public ExpeditionOnlineMenu(ProcessManager manager) : base(manager, RainMeadow.Ext_ProcessID.ExpeditionMenu)
         {
-            backTarget = RainMeadow.Ext_ProcessID.LobbySelectMenu;
-            RainMeadow.Warn("GARRA TEST PAGES:" + pages.Count);
+            //backTarget = RainMeadow.Ext_ProcessID.LobbySelectMenu;
 
 
             this.startButton = new EventfulHoldButton(this, this.pages[0], this.Translate("ENTER"), new UnityEngine.Vector2(683f, 85f), 40f);
@@ -160,7 +165,6 @@ namespace RainMeadow
                 //pages[0].subObjects.Add(playerDisplayer);
                 //playerDisplayer.CallForRefresh();
 
-                ModifyExistingMenuItems();
                 // If JollyCoop mod is present, add a small shortcut to its setup dialog so players can access Jolly settings in expedition lobby.
                 if (ModManager.JollyCoop)
                 {
@@ -199,27 +203,13 @@ namespace RainMeadow
                 }
                 else
                 {
-                    RainMeadow.Warn("garra test Im NOT the lobby owner :D");
-                    MatchmakingManager.OnPlayerListReceived += OnlineManager_OnPlayerListReceived;
+                    RainMeadow.Warn("garra test Im NOT the lobby owner D:");
+
 
                     SetupClientOptions();
                 }
 
 
-                SetupOnlineCustomization();
-
-                SetupOnlineMenuItems();
-                UpdatePlayerList();
-
-                //slugcatPageIndex = indexFromColor(storyGameMode.currentCampaign);
-
-
-                //UpdateSelectedSlugcatInMiscProg();
-
-                MatchmakingManager.OnPlayerListReceived += OnlineManager_OnPlayerListReceived;
-
-                //ChatTextBox.OnShutDownRequest += ResetChatInput;
-                //ChatLogManager.Subscribe(this);
 
 
             }
@@ -227,6 +217,24 @@ namespace RainMeadow
             {
                 RainMeadow.Debug("ExpeditionMenu: failed to init chat/player list: " + ex.Message);
             }
+
+            ModifyExistingMenuItems();
+
+
+            MatchmakingManager.OnPlayerListReceived += OnlineManager_OnPlayerListReceived;
+            SetupOnlineCustomization();
+
+            SetupOnlineMenuItems();
+            UpdatePlayerList();
+
+            //slugcatPageIndex = indexFromColor(storyGameMode.currentCampaign);
+
+
+            //UpdateSelectedSlugcatInMiscProg();
+
+
+            ChatTextBox.OnShutDownRequest += ResetChatInput;
+            ChatLogManager.Subscribe(this);
         }
 
         public override void Init()
@@ -271,6 +279,8 @@ namespace RainMeadow
         public override void Update()
         {
             var jollyallowed = false;
+                //jollyallowed = base.CheckJollyCoopAvailable(slugcatColorOrder[slugcatPageIndex]);
+                expeditionGameMode.avatarCount = jollyallowed ? manager.rainWorld.options.JollyPlayerCount : 1;
             if (ModManager.JollyCoop)
             {
 
