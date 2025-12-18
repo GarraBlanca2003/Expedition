@@ -8,7 +8,8 @@
 A true online multiplayer experience built on top of Rain World. Players join and play with no input delay and can go to different parts of the map without sharing a camera. It supports Arena, Story, and a custom game-mode called Meadow.
 
 Do you know [Meadow from Might&Delight](https://store.steampowered.com/app/486310/Meadow/), the Shelter series guys? If you don't, maybe you should! This custom game-mode is a reinterpretation of that multiplayer experience, but in the Rain World universe.
-
+## Expediton mode 
+working on it
 ## How does it work
 
 Rain Meadow is a mod that can be loaded as just any mod. Each player launches their game and joins a lobby. Lobbies can be created with different game-modes selected, and the lobby owner can tweak settings for a lobby. Hot-join is supported.
