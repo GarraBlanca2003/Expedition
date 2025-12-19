@@ -46,7 +46,7 @@ namespace RainMeadow
                 pages[0].subObjects.Add(chatMenuBox);
                 ChatLogManager.Subscribe(chatMenuBox);
 
-                playerDisplayer = new PlayerDisplayer(this, pages[0], new Vector2(960f, 130f), [.. OnlineManager.players.OrderByDescending(x => x.isMe)], GetPlayerButton, 4, ArenaPlayerBox.DefaultSize.x, new(ArenaPlayerBox.DefaultSize.y, 0), new(ArenaPlayerSmallBox.DefaultSize.y, 10));
+                playerDisplayer = new PlayerDisplayer(this, pages[0], new Vector2(960f, 130f), OnlineManager.players.OrderByDescending(x => x.isMe).ToList(), GetPlayerButton, 4, ArenaPlayerBox.DefaultSize.x, new(ArenaPlayerBox.DefaultSize.y, 0), new(ArenaPlayerSmallBox.DefaultSize.y, 10));
                 pages[0].subObjects.Add(playerDisplayer);
                 playerDisplayer.CallForRefresh();
 
@@ -130,7 +130,7 @@ namespace RainMeadow
         {
             try
             {
-                playerDisplayer?.UpdatePlayerList([.. OnlineManager.players.OrderByDescending(x => x.isMe)]);
+                playerDisplayer?.UpdatePlayerList(OnlineManager.players.OrderByDescending(x => x.isMe).ToList());
             }
             catch { }
         }

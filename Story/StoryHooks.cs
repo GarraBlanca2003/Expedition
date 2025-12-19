@@ -1962,7 +1962,8 @@ namespace RainMeadow
         private void RegionGate_Update(ILContext il)
         {
             try
-            {
+            {   
+                RainMeadow.Warn("GARRA CHANGE ZONE IN STORY HOOKS");
                 var c = new ILCursor(il);
                 var skip = il.DefineLabel();
                 c.GotoNext(moveType: MoveType.After,

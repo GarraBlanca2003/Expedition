@@ -274,7 +274,17 @@ namespace RainMeadow
                 this.clientSettings.AddData(customSettings);
                 AddClientData();
                 clientSettings.EnterResource(lobby);
-                OnlineManager.instance.manager.RequestMainProcessSwitch(MenuProcessId());
+                if (this.lobby != null && this.lobby.gameMode is ExpeditionGameMode && !this.lobby.isOwner)
+                {
+//                    OnlineManager.instance.manager.RequestMainProcessSwitch(RainMeadow.Ext_ProcessID.WaitForHostMenu);
+                    //using everyone use the same menu (not cordinated yet)
+                    OnlineManager.instance.manager.RequestMainProcessSwitch(MenuProcessId());
+
+                }
+                else
+                {
+                    OnlineManager.instance.manager.RequestMainProcessSwitch(MenuProcessId());
+                }
             }
         }
 
